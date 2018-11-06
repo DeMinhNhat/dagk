@@ -9,7 +9,8 @@ export const userMessageItems = (state, action) => {
           uid: action.uid,
           displayName: action.displayName,
           message: action.message,
-          createdAt: action.createdAt
+          createdAt: action.createdAt,
+          to: action.to
         }
       ];
     case types.SEND_MESSAGE_SUCCESS:
@@ -56,10 +57,12 @@ export const messages = (state = [], action) => {
       return [
         ...state,
         {
+          id: action.id,
           uid: action.uid,
           displayName: action.displayName,
           message: action.message,
-          createdAt: action.createdAt
+          createdAt: action.createdAt,
+          to: action.to
         }
       ];
     default:

@@ -1,26 +1,33 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Button, Container } from "reactstrap";
+import { Button } from "reactstrap";
 
 let myInput;
-const MessageInput = ({ sendMessage }) => (
-  <div class="chat-message clearfix">
-    <i class="fa fa-file-o" /> &nbsp;&nbsp;&nbsp;
-    <i class="fa fa-file-image-o" />
+const MessageInput = ({ sendMessage, corelatedUser }) => (
+  <div
+    className="chat-message clearfix"
+    style={{ textAlign: "center", left: "50%" }}
+  >
+    <i className="fa fa-file-o" /> &nbsp;&nbsp;&nbsp;
+    <i className="fa fa-file-image-o" />
     <input
       type="text"
       ref={ref => (myInput = ref)}
       onKeyUp={({ keyCode }) => {
         if (keyCode === 13) {
-          sendMessage(myInput.value);
-          myInput.value = "";
+          if (corelatedUser !== "null"&&myInput.value!=="") {
+            sendMessage(myInput.value);
+            myInput.value = "";
+          }
         }
       }}
     />
     <Button
       onClick={() => {
-        sendMessage(myInput.value);
-        myInput.value = "";
+        if (corelatedUser !== "null"&&myInput.value!=="") {
+          sendMessage(myInput.value);
+          myInput.value = "";
+        }
       }}
     >
       Send
@@ -29,7 +36,8 @@ const MessageInput = ({ sendMessage }) => (
 );
 
 MessageInput.propTypes = {
-  sendMessage: PropTypes.func.isRequired
+  sendMessage: PropTypes.func.isRequired,
+  corelatedUser: PropTypes.object.isRequired
 };
 
 export default MessageInput;

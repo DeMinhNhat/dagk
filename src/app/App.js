@@ -6,12 +6,12 @@ import UsersContainer from "../user/UsersContainer";
 class App extends Component {
   render() {
     return (
-      <div class="container clearfix">
-        <div class="people-list" id="people-list">
+      <div className="container clearfix" style={{textAlign: "center"}}>
+        <div className="people-list" id="people-list" style={{float: "left", width: "300px", display: "inline"}}>
           <UsersContainer />
         </div>
-        <div class="chat">
-          <div class="chat-header clearfix">
+        <div className="chat" style={{display: "inline"}}>
+          <div className="chat-header clearfix">
             <HeaderContainer />
           </div>
           <MessageContainer />

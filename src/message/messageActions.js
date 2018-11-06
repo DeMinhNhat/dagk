@@ -1,12 +1,21 @@
 import firebase from "firebase";
 import * as types from "./messageActionTypes";
 
-export const retrieveMessage = ({ uid, displayName, message, createdAt }) => ({
-  type: types.RETRIEVE_MESSAGE,
+export const retrieveMessage = ({
+  id,
   uid,
   displayName,
   message,
-  createdAt
+  createdAt,
+  to
+}) => ({
+  type: types.RETRIEVE_MESSAGE,
+  id,
+  uid,
+  displayName,
+  message,
+  createdAt,
+  to
 });
 
 export const sendMessageInProgress = payload => ({
@@ -22,8 +31,9 @@ export const sendMessage = message => {
   return (dispatch, getState) => {
     const { uid } = getState().auth;
     const { displayName } = getState().users[uid];
+    const to = getState().corelatedUser;
 
-    dispatch(sendMessageInProgress({ uid, displayName, message }));
+    dispatch(sendMessageInProgress({ uid, displayName, message, to }));
 
     if (uid !== 0) {
       firebase
@@ -33,6 +43,7 @@ export const sendMessage = message => {
           uid,
           displayName,
           message,
+          to,
           createdAt: firebase.database.ServerValue.TIMESTAMP
         });
     } else {

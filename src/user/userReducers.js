@@ -13,3 +13,12 @@ export const users = (state = {}, action) => {
       return state;
   }
 };
+
+export const user = (state = "null", action) => {
+  switch (action.type) {
+    case types.GET_CORELATED_USER:
+      return action.uid;
+    default:
+      return state;
+  }
+};

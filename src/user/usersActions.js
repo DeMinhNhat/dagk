@@ -7,3 +7,10 @@ export const addConnectedUser = ({ uid, userPayload }) => {
     userPayload
   };
 };
+
+export const getCorelatedUser = uid => {
+  return {
+    type: types.GET_CORELATED_USER,
+    uid
+  };
+};

@@ -1,5 +1,7 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import firebase from "firebase";
+import moment from "moment";
 
 export default class UsersComponent extends Component {
   componentDidMount() {
@@ -23,26 +25,41 @@ export default class UsersComponent extends Component {
   }
 
   render() {
-    const { users } = this.props;
+    const { users, getCorelatedUser, auth } = this.props;
 
     return (
-      <ul class="list">
-        {this.showUsersList(users).map(user => (
-          <li class="clearfix">
-            <img
-              src={`${user.photoURL}`}
-              alt="avatar"
-              style={{ width: "80px", height: "auto" }}
-            />
-            <div class="about">
-              <div class="name">{user.displayName}</div>
-              <div class="status">
-                <i class="fa fa-circle online" /> online
-              </div>
-            </div>
-          </li>
-        ))}
+      <ul className="list">
+        {this.showUsersList(users).map(
+          user =>
+            auth.uid !== user.uid ? (
+              <li className="clearfix"
+                key={user.uid}
+                onClick={() => {
+                  getCorelatedUser(user.uid);
+                }}
+              >
+                <hr />
+                <img
+                  src={`${user.photoURL}`}
+                  alt="avatar"
+                  style={{ width: "80px", height: "auto" }}
+                />
+                <div>
+                  <div>{user.displayName}</div>
+                  <span>Đăng nhập lúc: </span>
+                  <span>{moment(user.lastTimeLoggedIn).format("lll")}</span>
+                </div>
+              </li>
+            ) : (
+              <div />
+            )
+        )}
       </ul>
     );
   }
 }
+
+UsersComponent.propTypes = {
+  getCorelatedUser: PropTypes.func.isRequired,
+  addConnectedUser: PropTypes.func.isRequired
+};

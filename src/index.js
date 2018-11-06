@@ -1,17 +1,14 @@
 import React from "react";
-import { render } from "react-dom";
 import firebase from "firebase";
-import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
+import { render } from "react-dom";
 import createLogger from "redux-logger";
-import { Provider } from "react-redux";
-import { Container } from "reactstrap";
 import { firebaseConfig } from "./config";
-import reducers from "./app/reducers";
-import App from "./app/App";
+import { createStore, applyMiddleware } from "redux";
 import "./index.css";
+import Root from "./app/Root";
+import reducers from "./app/reducers";
 import "bootstrap/dist/css/bootstrap.min.css";
-
 firebase.initializeApp(firebaseConfig);
 
 const loggerMiddleware = createLogger();
@@ -22,11 +19,4 @@ const store = createStore(
   applyMiddleware.apply(undefined, reduxMiddlewares)
 );
 
-render(
-  <Container>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </Container>,
-  document.getElementById("root")
-);
+render(<Root store={store} />, document.getElementById("root"));

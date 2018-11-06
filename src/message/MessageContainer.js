@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import MessageInput from "./MessageInput";
 import MessageList from "./MessageList";
@@ -9,26 +9,42 @@ const Message = ({
   isUserSignedIn,
   messages,
   retrieveMessage,
-  sendMessage
-}) => (
-  <div>
-    <MessageList retrieveMessage={retrieveMessage} messages={messages} />
-    {isUserSignedIn && <MessageInput sendMessage={sendMessage} />}
-  </div>
-);
+  sendMessage,
+  corelatedUser,
+  auth
+}) =>
+  isUserSignedIn ? (
+    <div>
+      <MessageList
+        retrieveMessage={retrieveMessage}
+        messages={messages}
+        corelatedUser={corelatedUser}
+        auth={auth}
+      />
+      <MessageInput sendMessage={sendMessage} corelatedUser={corelatedUser} />
+    </div>
+  ) : (
+    <div style={{ textAlign: "center", left: "50%" }}>
+      <span>You need to sign in to see messages!!</span>
+    </div>
+  );
 
 Message.propTypes = {
   retrieveMessage: PropTypes.func.isRequired,
   sendMessage: PropTypes.func.isRequired,
-  userMessage: PropTypes.string.isRequired,
-  isUserSignedIn: PropTypes.object.isRequired,
-  messages: PropTypes.array.isRequired
+  userMessage: PropTypes.object.isRequired,
+  isUserSignedIn: PropTypes.bool.isRequired,
+  messages: PropTypes.array.isRequired,
+  corelatedUser: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
   userMessage: state.userMessage,
   isUserSignedIn: state.auth.isUserSignedIn,
-  messages: state.messages
+  messages: state.messages,
+  corelatedUser: state.corelatedUser,
+  auth: state.auth
 });
 
 export default connect(mapStateToProps, {
