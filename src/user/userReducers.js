@@ -1,23 +1,18 @@
 import * as types from "./usersActionTypes";
 
-export const users = (state = {}, action) => {
+export const users = (state = [], action) => {
   switch (action.type) {
-    case types.USER_LOGGED_IN:
-      return {
-        ...state,
-        [action.uid]: {
-          ...action.userPayload
-        }
-      };
+    case types.GET_USERS:
+      return [...state, action.user];
     default:
       return state;
   }
 };
 
-export const user = (state = "null", action) => {
+export const user = (state = "", action) => {
   switch (action.type) {
     case types.GET_CORELATED_USER:
-      return action.uid;
+      return action.user;
     default:
       return state;
   }

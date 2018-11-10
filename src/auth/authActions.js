@@ -1,8 +1,10 @@
+import firebase from "firebase";
+import { getConnectedUsers } from "../user/usersActions";
+import { getSentMessages } from "../message/messageActions";
 import * as types from "./authActionTypes";
 import { authConfig } from "./../config";
-import firebase from "firebase";
 
-const signInSuccess = (uid, displayName, photoURL, email) => ({
+const signInSuccess = ({ uid, displayName, photoURL, email }) => ({
   type: types.SIGNIN_SUCCESS,
   uid,
   displayName,
@@ -26,23 +28,21 @@ export const signIn = () => {
       provider.addScope(permission)
     );
 
-    firebase
-      .auth()
-      .signInWithPopup(provider)
+    const auth = firebase.auth().signInWithPopup(provider);
+    auth
       .then(result => {
         const { user: { uid, displayName, photoURL, email } } = result;
+        const userQuery = firebase.database().ref(`users/${uid}`);
+        userQuery.set({
+          displayName,
+          photoURL,
+          email,
+          lastTimeLoggedIn: firebase.database.ServerValue.TIMESTAMP
+        });
 
-        firebase
-          .database()
-          .ref(`users/${uid}`)
-          .set({
-            displayName,
-            photoURL,
-            email,
-            lastTimeLoggedIn: firebase.database.ServerValue.TIMESTAMP
-          });
-
-        dispatch(signInSuccess(uid, displayName, photoURL, email));
+        dispatch(signInSuccess({ uid, displayName, photoURL, email }));
+        dispatch(getConnectedUsers());
+        dispatch(getSentMessages());
       })
       .catch(error => {
         dispatch(signInError(error.message));

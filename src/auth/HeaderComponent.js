@@ -1,35 +1,51 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Button } from "reactstrap";
+import { Button, Container, Row, Col, Badge } from "reactstrap";
 
 const HeaderComponent = ({ onSignInClick, auth, corelatedUser }) => (
-  <div>
+  <Container>
     {auth.isUserSignedIn ? (
-      <div style={{ textAlign: "center", left: "50%" }}>
-        <span>YOU:</span>
-        <img
-          src={`${auth.photoURL}`}
-          alt="avatar"
-          style={{ width: "80px", height: "auto" }}
-        />
-        <div className="chat-about">
-          <div className="chat-num-messages" />
-        </div>
-        <i className="fa fa-star" />
-        {corelatedUser !== "null" ? (
-          <span>TO: {corelatedUser}</span>
+      <Row>
+        <Col />
+        <Col>
+          <Row>
+            <Badge color="info">YOU</Badge>
+          </Row>
+          <Row>
+            <img
+              src={`${auth.photoURL}`}
+              alt="avatar"
+              style={{ width: "80px", height: "80px" }}
+            />
+          </Row>
+        </Col>
+        {corelatedUser !== "" ? (
+          <Col>
+            <Row>
+              <Badge color="info">TO</Badge>
+            </Row>
+            <Row>
+              <img
+                src={`${corelatedUser.photoURL}`}
+                alt="avatar"
+                style={{ width: "80px", height: "80px" }}
+              />
+            </Row>
+          </Col>
         ) : (
-          <span>TO: no one</span>
+          <Col />
         )}
-      </div>
+        <Col />
+      </Row>
     ) : (
-      <div style={{ textAlign: "center", left: "50%" }}>
+      <Container style={{ textAlign: "center", left: "50%" }}>
         <Button onClick={onSignInClick} color="primary">
           Signin Here!!
         </Button>
-      </div>
+      </Container>
     )}
-  </div>
+    <hr />
+  </Container>
 );
 
 HeaderComponent.propTypes = {

@@ -14,10 +14,7 @@ export const auth = (state = initialState, action) => {
         ...state,
         isUserSignedIn: true,
         isInProgress: false,
-        uid: action.uid,
-        displayName: action.displayName,
-        photoURL: action.photoURL,
-        email: action.email
+        ...action
       };
     case types.SIGNIN:
       return {

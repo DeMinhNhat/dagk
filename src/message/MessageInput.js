@@ -1,21 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Button } from "reactstrap";
+import { Button, Row } from "reactstrap";
 
 let myInput;
 const MessageInput = ({ sendMessage, corelatedUser }) => (
-  <div
-    className="chat-message clearfix"
-    style={{ textAlign: "center", left: "50%" }}
-  >
-    <i className="fa fa-file-o" /> &nbsp;&nbsp;&nbsp;
-    <i className="fa fa-file-image-o" />
+  <Row style={{ float: "right", clear: "both", margin: "2px" }}>
     <input
       type="text"
       ref={ref => (myInput = ref)}
       onKeyUp={({ keyCode }) => {
         if (keyCode === 13) {
-          if (corelatedUser !== "null"&&myInput.value!=="") {
+          if (corelatedUser !== "null" && myInput.value !== "") {
             sendMessage(myInput.value);
             myInput.value = "";
           }
@@ -23,8 +18,9 @@ const MessageInput = ({ sendMessage, corelatedUser }) => (
       }}
     />
     <Button
+      color="info"
       onClick={() => {
-        if (corelatedUser !== "null"&&myInput.value!=="") {
+        if (corelatedUser !== "null" && myInput.value !== "") {
           sendMessage(myInput.value);
           myInput.value = "";
         }
@@ -32,7 +28,7 @@ const MessageInput = ({ sendMessage, corelatedUser }) => (
     >
       Send
     </Button>
-  </div>
+  </Row>
 );
 
 MessageInput.propTypes = {

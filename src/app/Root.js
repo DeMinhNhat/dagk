@@ -5,13 +5,13 @@ import React from "react";
 import App from "./App";
 
 const Root = ({ store }) => (
-    <Provider store={store}>
-      <BrowserRouter>
-        <Switch>
-          <Route exact path="/" component={App} />
-        </Switch>
-      </BrowserRouter>
-    </Provider>
+  <Provider store={store}>
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/" component={App} />
+      </Switch>
+    </BrowserRouter>
+  </Provider>
 );
 
 Root.propTypes = {

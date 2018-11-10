@@ -3,16 +3,7 @@ import * as types from "./messageActionTypes";
 export const userMessageItems = (state, action) => {
   switch (action.type) {
     case types.SEND_MESSAGE:
-      return [
-        ...state,
-        {
-          uid: action.uid,
-          displayName: action.displayName,
-          message: action.message,
-          createdAt: action.createdAt,
-          to: action.to
-        }
-      ];
+      return [...state, action.msg];
     case types.SEND_MESSAGE_SUCCESS:
     case types.SEND_MESSAGE_ERROR:
     default:
@@ -54,17 +45,7 @@ export const userMessage = (state = userMessageInitialState, action) => {
 export const messages = (state = [], action) => {
   switch (action.type) {
     case types.RETRIEVE_MESSAGE:
-      return [
-        ...state,
-        {
-          id: action.id,
-          uid: action.uid,
-          displayName: action.displayName,
-          message: action.message,
-          createdAt: action.createdAt,
-          to: action.to
-        }
-      ];
+      return [...state, action.msg];
     default:
       return state;
   }
