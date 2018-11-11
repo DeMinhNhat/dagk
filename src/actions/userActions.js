@@ -1,5 +1,5 @@
 import firebase from "firebase";
-import * as types from "./usersActionTypes";
+import * as types from "../constants/userActionTypes";
 
 export const getUser = user => {
   return {

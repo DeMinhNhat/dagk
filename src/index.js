@@ -1,10 +1,10 @@
 import { render } from "react-dom";
-import firebase from "firebase";
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import configureStore from "./configureStore";
+import Root from "./components/Root";
 import { firebaseConfig } from "./config";
-import Root from "./app/Root";
+import firebase from "firebase";
 firebase.initializeApp(firebaseConfig);
 
 const store = configureStore();

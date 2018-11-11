@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
-import MessageComponent from "./messageComponent";
-import { sendMessage } from "./messageActions";
+import MessageComponent from "../components/messageComponent";
+import { sendMessage } from "../actions/messageActions";
 
 const mapStateToProps = state => ({
   auth: state.auth,

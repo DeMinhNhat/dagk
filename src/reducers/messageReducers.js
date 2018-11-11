@@ -1,4 +1,4 @@
-import * as types from "./messageActionTypes";
+import * as types from "../constants/messageActionTypes";
 
 export const userMessageItems = (state, action) => {
   switch (action.type) {

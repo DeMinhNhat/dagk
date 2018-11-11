@@ -1,6 +1,6 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { Container, Badge } from "reactstrap";
+import { BrowserRouter as Link } from "react-router-dom";
 import MessageInput from "./MessageInput";
 import MessageList from "./MessageList";
 
@@ -18,15 +18,10 @@ const MessageComponent = ({ corelatedUser, messages, sendMessage, auth }) =>
     <Container style={{ textAlign: "center", left: "50%" }}>
       <h4>
         <Badge color="info">You need to sign in to see messages!!</Badge>
+        <hr/>
+        <Badge color="info"><Link to="/" style={{ color:"white" }}>Sign In!!</Link></Badge>
       </h4>
     </Container>
   );
-
-MessageComponent.propTypes = {
-  sendMessage: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-  messages: PropTypes.array.isRequired,
-  corelatedUser: PropTypes.object.isRequired
-};
 
 export default MessageComponent;

@@ -1,5 +1,5 @@
 import firebase from "firebase";
-import * as types from "./messageActionTypes";
+import * as types from "../constants/messageActionTypes";
 
 export const retrieveMessage = msg => ({
   type: types.RETRIEVE_MESSAGE,

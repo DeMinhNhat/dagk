@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import moment from "moment";
 import {
   Container,
@@ -53,11 +52,5 @@ const UsersComponent = ({ users, auth, getCorelatedUser }) => (
     )}
   </Container>
 );
-
-UsersComponent.propTypes = {
-  getCorelatedUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-  users: PropTypes.array.isRequired
-};
 
 export default UsersComponent;

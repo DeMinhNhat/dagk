@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import moment from "moment";
 import {
   Container,
@@ -55,11 +54,5 @@ const MessageList = ({ messages, corelatedUser, auth }) => (
       )}
   </Container>
 );
-
-MessageList.propTypes = {
-  corelatedUser: PropTypes.object.isRequired,
-  auth: PropTypes.object.isRequired,
-  messages: PropTypes.array.isRequired
-};
 
 export default MessageList;
