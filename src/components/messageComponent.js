@@ -1,27 +1,32 @@
-import React from "react";
-import { Container, Badge } from "reactstrap";
-import { BrowserRouter as Link } from "react-router-dom";
+import React, { Component } from "react";
+import { Container } from "reactstrap";
 import MessageInput from "./MessageInput";
 import MessageList from "./MessageList";
 
-const MessageComponent = ({ corelatedUser, messages, sendMessage, auth }) =>
-  auth.isUserSignedIn ? (
-    <Container>
-      <MessageList
-        messages={messages}
-        corelatedUser={corelatedUser}
-        auth={auth}
-      />
-      <MessageInput sendMessage={sendMessage} corelatedUser={corelatedUser} />
-    </Container>
-  ) : (
-    <Container style={{ textAlign: "center", left: "50%" }}>
-      <h4>
-        <Badge color="info">You need to sign in to see messages!!</Badge>
-        <hr/>
-        <Badge color="info"><Link to="/" style={{ color:"white" }}>Sign In!!</Link></Badge>
-      </h4>
-    </Container>
-  );
+class MessageComponent extends Component {
+    componentDidMount() {
+        if (this.props.auth.isUserSignedIn) {
+            this.props.getSentMessages();
+        }
+    }
+
+    render() {
+            return (
+                    this.props.auth.isUserSignedIn  && (
+                       <Container>
+          <MessageList
+           messages={this.props.messages}
+            corelatedUser={this.props.corelatedUser}
+            auth={this.props.auth}
+          />
+          <MessageInput
+            sendMessage={this.props.sendMessage}
+              corelatedUser={    this.props.corelatedUser}
+          />
+        </    Container>
+      )
+    );
+  }
+}
 
 export default MessageComponent;

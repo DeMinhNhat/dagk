@@ -1,56 +1,32 @@
-import React from "react";
-import moment from "moment";
-import {
-  Container,
-  Badge,
-  Row,
-  CardImg,
-  Card,
-  CardBody,
-  CardSubtitle,
-  CardText,
-  CardTitle
-} from "reactstrap";
+import React, { Component } from "react";
+import { Container } from "reactstrap";
+import UserSearch from "./UserSearch";
+import UserList from "./UserList";
+import StarList from "./StarList";
 
-const UsersComponent = ({ users, auth, getCorelatedUser }) => (
-  <Container>
-    <h2 style={{ textAlign: "center", marginRight: "30px" }}>
-      <Badge color="info">Người dùng</Badge>
-    </h2>
-    {users.map(
-      user =>
-        auth.uid !== user.uid ? (
-          <Row
-            key={user.uid}
-            style={{ margin: "2px" }}
-            onClick={() => {
-              getCorelatedUser(user);
-            }}
-          >
-            <Card>
-              <CardImg
-                src={`${user.photoURL}`}
-                alt="avatar"
-                style={{ width: "80px", height: "auto", margin: "auto" }}
-              />
-              <CardBody>
-                <CardTitle style={{ margin: "auto", textAlign: "center" }}>
-                  {user.displayName}
-                </CardTitle>
-                <CardSubtitle style={{ margin: "auto", textAlign: "center" }}>
-                  Đăng nhập lúc:{" "}
-                </CardSubtitle>
-                <CardText style={{ margin: "auto", textAlign: "center" }}>
-                  {moment(user.lastTimeLoggedIn).format("lll")}
-                </CardText>
-              </CardBody>
-            </Card>
-          </Row>
-        ) : (
-          <div />
-        )
-    )}
-  </Container>
-);
+class UserComponent extends Component {
+	render() {
+		return (
+			this.props.auth.isUserSignedIn && (
+				<Container>
+					<UserSearch getSearchUsers={this.props.getSearchUsers} />
+					<StarList
+						auth={this.props.auth}
+						stars={this.props.stars}
+						getCorelatedUser={this.props.getCorelatedUser}
+						getStars={this.props.getStars}
+					/>
+					<UserList
+						auth={this.props.auth}
+						users={this.props.users}
+						starUser={this.props.starUser}
+						getConnectedUsers={this.props.getConnectedUsers}
+						getCorelatedUser={this.props.getCorelatedUser}
+					/>
+				</Container>
+			)
+		);
+	}
+}
 
-export default UsersComponent;
+export default UserComponent;

@@ -1,24 +1,29 @@
 import * as types from "../constants/authActionTypes";
 
-// const initialState = {
-//   isUserSignedIn: false
-// };
-
 export const auth = (state = {}, action) => {
-  switch (action.type) {
-    case types.SIGNIN_SUCCESS:
-      return {
-        ...state,
-        isUserSignedIn: true,
-        ...action
-      };
-    case types.SIGNOUT_SUCCESS:
-      return {
-        ...state,
-        isUserSignedIn: false,
-        ...action
-      };
-    default:
-      return state;
-  }
+	switch (action.type) {
+	case types.SIGNIN_SUCCESS:
+		return {
+			...state,
+			...action.auth,
+			isUserSignedIn: true
+		};
+	case types.SIGNOUT_SUCCESS:
+		return {
+			...state,
+			...action.auth,
+			isUserSignedIn: false
+		};
+	default:
+		return state;
+	}
+};
+
+export const stars = (state = [], action) => {
+	switch (action.type) {
+	case types.RETRIEVE_STAR:
+		return [...state, action.star];
+	default:
+		return state;
+	}
 };

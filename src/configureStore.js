@@ -9,15 +9,15 @@ const loggerMiddleware = createLogger();
 const reduxMiddlewares = [thunk, loggerMiddleware];
 
 const configureStore = () => {
-  // const persistedState = loadState();
-  const store = createStore(
-    reducers,
-    // persistedState,
-    applyMiddleware.apply(undefined, reduxMiddlewares)
-  );
-  // store.subscribe(throttle(() => saveState(store.getState()), 1000));
-  // console.log(store.getState());
-  return store;
+	// const persistedState = loadState();
+	const store = createStore(
+		reducers,
+		// persistedState,
+		applyMiddleware.apply(undefined, reduxMiddlewares)
+	);
+	// store.subscribe(throttle(() => saveState(store.getState()), 1000));
+	// console.log(store.getState());
+	return store;
 };
 
 export default configureStore;
